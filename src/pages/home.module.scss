@@ -1,0 +1,60 @@
+.home {
+    background-image: url("../images/pana.png");
+    background-size: 450px;
+    background-repeat: no-repeat;
+    background-position: 850px 150px;
+
+    padding-top: 124px;
+    padding-inline: 40px;
+    z-index: 1000;
+
+    &__caption {
+    font-weight: 600;
+    font-size: 110px;
+    line-height: 170px;
+    letter-spacing: -2px;
+
+    width: 810px;
+    margin-block: 80px 10px;
+    margin-left: 80px;
+    z-index: 10;
+    }
+
+    &__desc {
+    font-size: 16px;
+    line-height: 29px;
+    letter-spacing: 0.5px;
+    opacity: 0.5;
+
+    width: 600px;
+    margin-left: 80px;
+    margin-block: 0 50px;
+    }
+
+    &__btn {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: 1px;
+
+        width: 200px;
+        height: 70px;
+    
+        background: #ef561a;
+        color: #ffffff;
+        border: 1px solid transparent;
+        border-radius: 10px;
+
+        margin-left: 80px;
+        margin-bottom: 150px;
+
+        &:hover {
+            background: #ffffff81;
+            border: 1.5px solid #ef561a;
+            color: #ef561a;
+        }
+    }
+
+}
+
+
