@@ -1,31 +1,31 @@
 import { useParams, Link, Outlet } from "react-router-dom";
-import { getRecipesByCategory } from "../components/services/fetchExercises";
+// import { getRecipesByCategory } from "../components/services/fetchExercises";
 import { useState, useEffect } from "react";
 import styles from "./recipesByCategory.module.scss";
 // import Spinner from "components/Loader/Loader";
 import { useLocation } from "react-router";
 
 function RecipesByCategory() {
-  const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/";
+  // const location = useLocation();
+  // const backLinkHref = location.state?.from ?? "/";
 
-  // const { strCategory } = useParams();
-  const { category } = useParams();
-  const [recipes, setRecipes] = useState([]);
+  // // const { strCategory } = useParams();
+  // const { category } = useParams();
+  // const [recipes, setRecipes] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    async function fetchRecipes() {
-      const data = await getRecipesByCategory(category);
-      setRecipes(data.meals);
-      setIsLoading(true);
-    }
-    fetchRecipes();
-  }, [category]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // useEffect(() => {
+  //   async function fetchRecipes() {
+  //     const data = await getRecipesByCategory(category);
+  //     setRecipes(data.meals);
+  //     setIsLoading(true);
+  //   }
+  //   fetchRecipes();
+  // }, [category]);
 
   return (
     <div>
-      {!isLoading && <p>...</p>}
+      {/* {!isLoading && <p>...</p>}
       {isLoading && (
         <div className={styles.recipes}>
           <button className={styles.recipes__btn}>
@@ -45,7 +45,7 @@ function RecipesByCategory() {
             ))}
           </ul>
         </div>
-      )}
+      )} */}
 
       {/* 
       {!isLoading && <Spinner />}

@@ -1,0 +1,22 @@
+.hero{
+    padding: 180px 40px;
+    // background-image: linear-gradient(0deg, rgba(29, 10, 41, 0.445) 0%, rgba(42, 35, 60, 0.7) 20%, rgba(57, 52, 66, 0.915) 80%, rgba(113, 108, 124, 0.728) 100%), url('../../images/bg/hero.jpg');
+    background:radial-gradient(circle, rgba(147, 198, 234, 0.159) 0%, rgba(9, 9, 21, 0.819) 100%), url('../../images/bg/hero.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+
+    &__title {
+    font-size: 44px;
+    line-height: 1.2;
+    color: #fafafa;
+    opacity: 0.8;
+    margin-bottom: 20px;
+    }
+
+    &__desc {
+        color: #fafafa;
+        opacity: 0.8;
+    }
+}
