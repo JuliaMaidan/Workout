@@ -5,9 +5,9 @@ axios.defaults.params = {
   api_key: "e46f406ff40897ad9456c1375654d5d9",
 };
 
-export const getMovies = async () => {
+export const getMovies = async (params) => {
   try {
-    const response = await axios.get("trending/all/day");
+    const response = await axios.get(params);
     if (response.status === 200) {
       return response.data;
     }
@@ -28,15 +28,27 @@ export const getCategories = async () => {
   }
 };
 
-// export const getMoviesByGenre = async (genreId) => {
+// export const getMoviesByGenre = async (genreName) => {
 //   try {
+//     // Отримати ID жанру на основі назви
+//     const genreResponse = await axios.get("genre/movie/list");
+//     const genreId = genreResponse.data.genres.find(
+//       (genre) => genre.name === genreName
+//     )?.id;
+
+//     if (!genreId) {
+//       throw new Error("Жанр не знайдено.");
+//     }
+
+//     // Виконати запит для отримання фільмів за ID жанру
 //     const response = await axios.get("discover/movie", {
 //       params: {
 //         with_genres: genreId,
 //       },
 //     });
+
 //     if (response.status === 200) {
-//       return response.data.results;
+//       return response.data;
 //     }
 //     throw new Error("Не вдалося знайти фільми за жанром.");
 //   } catch (error) {
@@ -45,7 +57,7 @@ export const getCategories = async () => {
 //   }
 // };
 
-export const getMoviesByGenre = async (genreName) => {
+export const getMoviesByGenre = async (genreName, page = 1) => {
   try {
     // Отримати ID жанру на основі назви
     const genreResponse = await axios.get("genre/movie/list");
@@ -57,15 +69,16 @@ export const getMoviesByGenre = async (genreName) => {
       throw new Error("Жанр не знайдено.");
     }
 
-    // Виконати запит для отримання фільмів за ID жанру
+    // Виконати запит для отримання фільмів за ID жанру та номером сторінки
     const response = await axios.get("discover/movie", {
       params: {
         with_genres: genreId,
+        page: page,
       },
     });
 
     if (response.status === 200) {
-      return response.data.results;
+      return response.data;
     }
     throw new Error("Не вдалося знайти фільми за жанром.");
   } catch (error) {
@@ -74,9 +87,9 @@ export const getMoviesByGenre = async (genreName) => {
   }
 };
 
-export const getMovieDetails = async (movieId) => {
+export const getMovieDetails = async (id) => {
   try {
-    const response = await axios.get(`movie/${movieId}`);
+    const response = await axios.get(`movie/${id}`);
     if (response.status === 200) {
       return response.data;
     }
@@ -87,9 +100,9 @@ export const getMovieDetails = async (movieId) => {
   }
 };
 
-export const getMovieVideos = async (movieId) => {
+export const getMovieVideos = async (id) => {
   try {
-    const response = await axios.get(`movie/${movieId}/videos`);
+    const response = await axios.get(`movie/${id}/videos`);
     if (response.status === 200) {
       return response.data;
     }
@@ -98,4 +111,29 @@ export const getMovieVideos = async (movieId) => {
     console.log("Виникла помилка при отриманні трейлерів фільму:", error);
     throw error;
   }
+};
+
+export const getCast = async (id) => {
+  const { data } = await axios.get(`/movie/${id}/credits`);
+  return data;
+};
+
+export const getReviews = async (id) => {
+  const { data } = await axios.get(`/movie/${id}/reviews`);
+  return data;
+};
+
+export const getSimilar = async (id) => {
+  const { data } = await axios.get(`/movie/${id}/similar`);
+  return data;
+};
+
+export const getSearchedMovies = async (search, page = 1) => {
+  const { data } = await axios.get("/search/movie", {
+    params: {
+      query: search,
+      page: page,
+    },
+  });
+  return data;
 };

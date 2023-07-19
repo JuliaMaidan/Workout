@@ -27,14 +27,18 @@ a{
     top:0;
     left:0;
     right:0;
-    padding-inline: 30px;
     background: #0f101fd8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     font-size: 22px;
-    z-index: 100;
+    z-index: 1000;
+    
+
+    &__wrapper {
+        width: 1351px;
+        margin: 0 auto; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .logo {

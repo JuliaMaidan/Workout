@@ -1,32 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { getCategories } from "../services/fetchMovies";
-import { Link } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import { Suspense } from "react";
+import { Link, Outlet, useParams } from "react-router-dom";
+import styles from "../components/styled/movies.module.scss";
+import NotFound from "../components/NotFound/NotFound";
 
 const Movies = () => {
   const [categories, setCategories] = useState([]);
+  const { category } = useParams();
+  console.log(category);
 
   useEffect(() => {
     async function fetchCategories() {
       const data = await getCategories();
       setCategories(data);
-      console.log(data);
     }
     fetchCategories();
   }, []);
 
   return (
-    <div>
-      <h1>Movies</h1>
-      <p>Categories</p>
-      <ul>
+    <div className={styles.movies}>
+      <h1 className={styles.movies__title}>Search by categories</h1>
+      <ul className={styles.categories}>
         {categories.map(({ id, name }) => (
-          <li key={id}>
-            <Link to={`/movies/${name}`}>{name}</Link>
+          <li
+            className={
+              category === name
+                ? styles.categories__item_active
+                : styles.categories__item
+            }
+            key={id}
+          >
+            <Link className={styles.categories__link} to={`/movies/${name}`}>
+              {name}
+            </Link>
           </li>
         ))}
       </ul>
+      {!category && <NotFound text="Please, select the category" />}
       <Suspense>
         <Outlet />
       </Suspense>
