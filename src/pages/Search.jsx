@@ -1,12 +1,14 @@
+// import Search from "../components/Search/Search";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { getSearchedMovies } from "../../services/fetchMovies";
-import styles from "../styled/moviesByGenre.module.scss";
-import { FaSearch } from "react-icons/fa";
-import NotFound from "../NotFound/NotFound";
-import PostersList from "../PostersList/PostersList";
-import Paginator from "../Paginator/Paginator";
+import { getSearchedMovies } from "../services/fetchMovies";
+import { CiSearch } from "react-icons/ci";
+import NotFound from "../components/NotFound/NotFound";
+import PostersList from "../components/PostersList/PostersList";
+import Paginator from "../components/Paginator/Paginator";
+import styles from "../components/styled/search.module.scss";
+import Loader from "../components/Loader/Loader";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ const Search = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const query = searchParams.get("query") ?? "";
@@ -26,12 +29,14 @@ const Search = () => {
         const searchedMovies = await getSearchedMovies(query, currentPage);
         setMovies(searchedMovies.results);
         setTotalPages(searchedMovies.total_pages);
+        // setIsLoading(true);
         console.log(searchedMovies);
       } catch (error) {
         console.log(error);
         setSearchParams("");
       }
     };
+    // setIsLoading(false);
     fetchSearchedMovies();
   }, [searchParams, setSearchParams, currentPage]);
 
@@ -60,25 +65,53 @@ const Search = () => {
   };
 
   return (
-    <div>
-      <p className="title">Search</p>
-      <form className={styles.form} action="submit" onSubmit={handleSubmit}>
-        <input className={styles.input} type="text" onChange={handleChange} />
-        <button className={styles.btn}>
-          <FaSearch className={styles.btnLabel} />
+    <div className={styles.container}>
+      <form className={styles.search} action="submit" onSubmit={handleSubmit}>
+        <input
+          className={styles.search__input}
+          type="text"
+          onChange={handleChange}
+        />
+        <button className={styles.search__btn}>
+          <CiSearch className={styles.search__svg} size={22} />
         </button>
       </form>
-      <div className={styles.container}>
-        {movies.length === 0 ? (
+      <div className={styles.wrapper}>
+        {/* {movies.length === 0 ? (
           <NotFound text="Search by key-word" />
         ) : (
           <>
             <PostersList movies={movies} />
-            {/* <Paginator
+            <Paginator
               count={totalPages}
               currentPage={currentPage}
               handlePageChange={handlePageChange}
-            /> */}
+            />
+          </>
+        )} */}
+        {movies.length === 0 && <NotFound text="Search by key-word" />}
+        {isLoading && movies.length > 0 ? (
+          <Loader />
+        ) : (
+          <>
+            <PostersList movies={movies} />
+            <Paginator
+              count={totalPages}
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+            />
+          </>
+        )}
+        {isLoading && movies.length > 0 ? (
+          <Loader />
+        ) : (
+          <>
+            <PostersList movies={movies} />
+            <Paginator
+              count={totalPages}
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+            />
           </>
         )}
       </div>
