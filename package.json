@@ -2,7 +2,7 @@
   "name": "workout",
   "version": "0.1.0",
   "homepage": "https://JuliaMaidan.github.io/recipes/",
-  "private": false,
+  "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^2.1.1",
     "@emotion/react": "^11.11.1",
