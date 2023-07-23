@@ -74,11 +74,11 @@ const Search = () => {
         ) : (
           <>
             <PostersList movies={movies} />
-            {/* <Paginator
+            <Paginator
               count={totalPages}
               currentPage={currentPage}
               handlePageChange={handlePageChange}
-            /> */}
+            />
           </>
         )}
       </div>

@@ -29,15 +29,16 @@ const Search = () => {
         const searchedMovies = await getSearchedMovies(query, currentPage);
         setMovies(searchedMovies.results);
         setTotalPages(searchedMovies.total_pages);
-        // setIsLoading(true);
+        setIsLoading(true);
         console.log(searchedMovies);
+        // setIsLoading(false);
       } catch (error) {
         console.log(error);
         setSearchParams("");
       }
     };
-    // setIsLoading(false);
     fetchSearchedMovies();
+    setIsLoading(false);
   }, [searchParams, setSearchParams, currentPage]);
 
   const handleChange = (e) => {
@@ -77,43 +78,30 @@ const Search = () => {
         </button>
       </form>
       <div className={styles.wrapper}>
-        {/* {movies.length === 0 ? (
-          <NotFound text="Search by key-word" />
-        ) : (
-          <>
-            <PostersList movies={movies} />
-            <Paginator
-              count={totalPages}
-              currentPage={currentPage}
-              handlePageChange={handlePageChange}
-            />
-          </>
-        )} */}
         {movies.length === 0 && <NotFound text="Search by key-word" />}
-        {isLoading && movies.length > 0 ? (
-          <Loader />
-        ) : (
-          <>
+        {isLoading && <Loader />}
+        {movies.length > 0 && (
+          <div>
             <PostersList movies={movies} />
             <Paginator
               count={totalPages}
               currentPage={currentPage}
               handlePageChange={handlePageChange}
             />
-          </>
+          </div>
         )}
-        {isLoading && movies.length > 0 ? (
+        {/* {movies.length > 0 ? (
           <Loader />
         ) : (
-          <>
+          <div>
             <PostersList movies={movies} />
             <Paginator
               count={totalPages}
               currentPage={currentPage}
               handlePageChange={handlePageChange}
             />
-          </>
-        )}
+          </div>
+        )} */}
       </div>
     </div>
   );
